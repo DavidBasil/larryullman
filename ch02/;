@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Calendar</title>
+</head>
+<body>
+
+<form action="calendar.php" method="post">
+	
+<?php 
+# script 2.6 - calendar.php
+
+// make months array
+$months = [
+	1 => 'January',
+	'February',
+	'March',
+	'April',
+	'May',
+	'June',
+	'July',
+	'August',
+	'September',
+	'October',
+	'November',
+	'December'
+];
+
+?>
+
+</form>
+
+</body>
+</html>
