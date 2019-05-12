@@ -29,8 +29,8 @@ $months = [
 ];
 
 // make days and years array
-$days = range(1, 31);
-$years = range(2017, 2027);
+/* $days = range(1, 31); */
+/* $years = range(2017, 2027); */
 
 // make months pull-down menu
 echo '<select name="month">';
@@ -41,15 +41,15 @@ echo '</select>';
 
 // make days pull-down menu
 echo '<select name="day">';
-foreach($days as $value){
-	echo "<option value=\"$value\">$value</option>\n";
+for($day = 1; $day <= 31; $day++){
+	echo '<option value="'.$day.'">'.$day.'</option>';
 }
 echo '</select>';
 
 // make the years pull-down menu
 echo '<select name="year">';
-foreach($years as $value){
-	echo '<option value="'.$value.'">'.$value.'<option>';
+for($year = 2017; $year <= 2027; $year++){
+	echo '<option value="'.$year.'">'.$year.'</option>';
 }
 echo '</select>';
 
