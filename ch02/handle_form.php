@@ -14,6 +14,13 @@ $name = $_REQUEST['name'];
 $email = $_REQUEST['email'];
 $comments = $_REQUEST['comments'];
 
+// create the gender variable
+if (isset($_REQUEST['gender'])){
+	$gender = $_REQUEST['gender'];
+} else {
+	$gender = NULL;
+}
+
 // print the submitted info
 echo "<p>Thank you, 
 <strong>$name</strong>,
@@ -22,6 +29,14 @@ for the following comments:
 <pre>$comments</pre>
 <p>We will reply to you at <em>$email</em></p>";
 
+// print the message based upon the gender value
+if($gender == 'M'){
+	echo '<p><strong>Good day, Sir!</strong></p>';
+} elseif($gender == 'F'){
+	echo '<p><strong>Good day, Madam!</strong></p>';
+} else {
+	echo '<p><strong>You forgot to enter gender!</strong></p>';
+}
 
 ?>
 </body>
