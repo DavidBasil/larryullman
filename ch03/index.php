@@ -1,7 +1,18 @@
 <?php 
 # script 3.4 - index.php
+
+// this function creates ads
+function create_ad(){
+	echo '<div class="alert alert-info" role="alert">
+		<p>This is annoying ad! This is annoying ad! This is annoying ad!</p>
+	</div>';
+} // end of function
+
 $page_title = 'Welcom to this Site!';
 include('includes/header.html');
+
+// call ads function
+create_ad();
 ?>
 
 <div class="page-header">
@@ -14,4 +25,8 @@ include('includes/header.html');
 	no sea takimata sanctus est Lorem ipsum dolor sit amet.
 </p>
 
-<?php include('includes/footer.html'); ?>
+<?php 
+// call the ads function
+create_ad();
+include('includes/footer.html'); 
+?>
