@@ -8,7 +8,7 @@ function create_ad(){
 	</div>';
 } // end of function
 
-$page_title = 'Welcom to this Site!';
+$page_title = 'Welcome to this Site!';
 include('includes/header.html');
 
 // call ads function
