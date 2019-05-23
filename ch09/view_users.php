@@ -21,6 +21,8 @@ $num = mysqli_num_rows($r);
 
 // if it ran ok, display the results
 if($num > 0){
+	// print how many users there are
+	echo '<p>There are currently '.$num.' registered users.</p>';
 	// table header
 	echo '<table width="60%">
 		<thead>
@@ -39,14 +41,10 @@ while($row = mysqli_fetch_array($r, MYSQLI_ASSOC)){
 	// free up resources
 	mysqli_free_result($r);
 } else {
-	// public message
-	echo '<p class="error">The current users could not be retrieved. We apologize for any inconvenience.</p>';
-	// debugging message
-	echo '<p>'.mysqli_error($dbc).'<br><br>Query: '.$q.'</p>';
+	echo '<p class="error">There are currently no registered users</p>';
 }
 // close db
 mysqli_close($dbc);
 include('includes/footer.html');
-
 
 ?>
