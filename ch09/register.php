@@ -8,32 +8,34 @@ include('includes/header.html');
 
 // check for form submission
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
+	// connect to db
+	require('../mysqli_connect.php');
 	// initiliaze an error array
 	$errors = [];
 	// check for the first name
 	if(empty($_POST['first_name'])){
 		$errors[] = 'You forgot to add your first name';
 	} else {
-		$first_name = trim($_POST['first_name']);
+		$first_name = mysqli_real_escape_string($dbc, trim($_POST['first_name']));
 	}
 	// check for the last name
 	if(empty($_POST['last_name'])){
 		$errors[] = 'You forgot to add your last name';
 	} else {
-		$last_name = trim($_POST['last_name']);
+		$last_name = mysqli_real_escape_string($dbc, trim($_POST['last_name']));
 	}
 	// check for email
 	if(empty($_POST['email'])){
 		$errors[] = 'You forgot to add email';
 	} else {
-		$email = trim($_POST['email']);
+		$email = mysqli_real_escape_string($dbc, trim($_POST['email']));
 	}
 	// check for password and match against the confirmed one
 	if(!empty($_POST['pass1'])){
 		if($_POST['pass1'] != $_POST['pass2']){
 			$errors[] = 'Your password did not match the confirmed password';
 		} else {
-			$password = trim($_POST['pass1']);
+			$password = mysqli_real_escape_string($dbc, trim($_POST['pass1']));
 		}
 	} else {
 		$errors[] = 'You forgot to enter your password';
@@ -43,7 +45,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	if(empty($errors)){
 		// register the user in the database
 		// connect to db
-		require('../mysqli_connect.php');
 		// make the query
 		$q = "insert into users(first_name, last_name, email, pass, registration_date)
 			values('$first_name', '$last_name', '$email', SHA2('$password', 512), NOW())";
@@ -70,6 +71,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		}
 		echo '</p><p>Please try again</p><br>';
 	}
+	// close connection
+	mysqli_close($dbc);
 
 } // end of submit condiational
 

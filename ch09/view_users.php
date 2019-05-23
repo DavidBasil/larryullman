@@ -16,8 +16,11 @@ date_format(registration_date, '%M %d, %Y') as dr
 from users order by registration_date asc";
 $r = @mysqli_query($dbc, $q);
 
+// count the number of returned rows
+$num = mysqli_num_rows($r);
+
 // if it ran ok, display the results
-if($r){
+if($num > 0){
 	// table header
 	echo '<table width="60%">
 		<thead>
