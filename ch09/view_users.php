@@ -11,9 +11,8 @@ echo '<h2>Registered Users</h2>';
 require('../mysqli_connect.php');
 
 // make the query
-$q = "select concat(last_name, ', ', first_name) as name,
-date_format(registration_date, '%M %d, %Y') as dr 
-from users order by registration_date asc";
+$q = "select last_name, first_name, date_format(registration_date, '%M %d, %Y')
+as dr, user_id from users order by registration_date asc";
 $r = @mysqli_query($dbc, $q);
 
 // count the number of returned rows
@@ -27,15 +26,23 @@ if($num > 0){
 	echo '<table width="60%">
 		<thead>
 			<tr>
-				<th align="left">Name</th>
-				<th align="left">Date registered</th>
+				<th align="left"><strong>Edit</strong></th>
+				<th align="left"><strong>Delete</strong></th>
+				<th align="left"><strong>Last Name</strong></th>
+				<th align="left"><strong>First Name</strong></th>
+				<th align="left"><strong>Date Registered</strong></th>
 			</tr>
 		</thead>	
 	<tbody>';
 	// fetch and print all records
 while($row = mysqli_fetch_array($r, MYSQLI_ASSOC)){
-	echo '<tr><td align="left">'.$row['name'].'</td><td align="left">'.$row['dr']
-		.'</td></tr>';
+	echo '<tr>
+			<td align="left"><a href="edit_user.php?id='.$row['user_id'].'">Edit</a></td>
+			<td align="left"><a href="delete_user.php?id='.$row['user_id'].'">Delete</a></td>
+			<td align="left">'.$row['last_name'].'</td>
+			<td align="left">'.$row['first_name'].'</td>
+			<td align="left">'.$row['dr'].'</td>
+		</tr>';
 	}
 	echo '</tbody></table>';
 	// free up resources
