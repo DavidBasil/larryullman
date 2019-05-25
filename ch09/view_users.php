@@ -36,8 +36,28 @@ if(isset($_GET['s']) && is_numeric($_GET['s'])){
 	$start = 0;
 }
 
+// determine the sort
+$sort = (isset($_GET['sort'])) ? $_GET['sort']: 'rd';
+
+// determine the sorting order
+switch($sort){
+case 'ln':
+	$order_by = 'last_name asc';
+	break;
+case 'fn':
+	$order_by = 'first_name asc';
+	break;
+case 'rd':
+	$order_by = 'registration_date asc';
+	break;
+default:
+	$order_by = 'registration_date asc';
+	$sort = 'rd';
+	break;
+}
+
 // define the query
-$q = "SELECT last_name, first_name, DATE_FORMAT(registration_date, '%M %d, %Y') AS dr, user_id FROM users ORDER BY registration_date ASC LIMIT $start, $display";
+$q = "SELECT last_name, first_name, DATE_FORMAT(registration_date, '%M %d, %Y') AS dr, user_id FROM users ORDER BY $order_by LIMIT $start, $display";
 $r = @mysqli_query($dbc, $q);
 
 // table
@@ -46,9 +66,9 @@ echo '<table width="60%">
 		<tr>
 			<th align="left"><strong>Edit</strong></th>
 			<th align="left"><strong>Delete</strong></th>
-			<th align="left"><strong>Last Name</strong></th>
-			<th align="left"><strong>First Name</strong></th>
-			<th align="left"><strong>Date registered</strong></th>
+			<th align="left"><strong><a href="view_users.php?sort=ln">Last Name</a></strong></th>
+			<th align="left"><strong><a href="view_users.php?sort=fn">First Name</a></strong></th>
+			<th align="left"><strong><a href="view_users.php?sort=rd">Date Registered</a></strong></th>
 		</tr>
 	</thead>
 	<tbody>';
@@ -60,7 +80,7 @@ while($row = mysqli_fetch_array($r, MYSQLI_ASSOC)){
 	$bg = ($bg == '#eeeeee' ? '#ffffff' : '#eeeeee');
 	echo '<tr bgcolor="'.$bg.'">
 		<td align="left"><a href="edit_user.php?id='.$row['user_id'].'">Edit</a></td>
-		<td align="left"><a href="delete_user.php?id='.$row['user_id'].'">Edit</a></td>
+		<td align="left"><a href="delete_user.php?id='.$row['user_id'].'">Delete</a></td>
 		<td align="left">'.$row['last_name'].'</td>
 		<td align="left">'.$row['first_name'].'</td>
 		<td align="left">'.$row['dr'].'</td>
@@ -76,18 +96,18 @@ if($pages > 1){
 	echo '<br><p>';
 	$current_page = ($start/$display) + 1;
 	if($current_page != 1){
-		echo '<a href="view_users.php?s='.($start-$display).'&p='.$pages.'">Previous</a>';
+		echo '<a href="view_users.php?s='.($start-$display).'&p='.$pages.'&sort='.$sort.'">Previous</a>';
 	}
 	for($i = 1; $i <= $pages; $i++){
 		if($i != $current_page){
-			echo '<a href="view_users.php?s='.(($display * ($i -1))).'&p='.$pages.'">'.$i.'</a>';
+			echo '<a href="view_users.php?s='.(($display * ($i -1))).'&p='.$pages.'&sort='.$sort.'">'.$i.'</a>';
 		} else {
 			echo $i.' ';
 		}
 	}
 	// next button
 	if($current_page != $pages){
-		echo '<a href="view_users.php?s='.($start + $display).'&p'.$pages.'">Next</a>';
+		echo '<a href="view_users.php?s='.($start + $display).'&p'.$pages.'&sort='.$sort.'">Next</a>';
 	}	
 	echo '</p>';
 } 
