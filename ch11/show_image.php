@@ -34,5 +34,3 @@ header("Content-Length: $fs\n");
 
 // send the file
 readfile($image);
-
-?>
