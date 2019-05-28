@@ -15,6 +15,8 @@ if(isset($errors) && !empty($errors)){
 }
 ?>
 
+<br>
+<br>
 <h2>Login</h2>
 
 <form action="login.php" method="post">
