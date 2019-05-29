@@ -9,7 +9,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	if($check){
 		// set session data
 		session_start();
-		$_SESSION['user_d'] = $data['user_id'];
+		$_SESSION['user_id'] = $data['user_id'];
 		$_SESSION['first_name'] = $data['first_name'];
 		// set cookies
 		/* setcookie('user_id', $data['user_id'], time()+3600, '/', '', 0, 0); */

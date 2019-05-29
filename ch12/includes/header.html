@@ -19,7 +19,7 @@
 				<li><a href="password.php">Change password</a></li>
 				<li>
 				<?php 
-					 if((isset($_COOKIE['user_id'])) && (basename($_SERVER['PHP_SELF']) != 'logout.php')){
+					 if(isset($_SESSION['user_id'])){
 					 echo '<a href="logout.php">Logout</a>';
 							 } else {
 							 echo '<a href="login.php">Login</a>';
