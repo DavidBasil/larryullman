@@ -9,20 +9,27 @@
 <?php 
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-	// cast all varriables to a specific type
-	$quantity = (int) $_POST['quantity'];
-	$price = (float) $_POST['price'];
-	$tax = (float) $_POST['tax'];
-	// all variables should be positive
+
+	$quantity = (isset($_POST['quantity'])) 
+		? filter_var($_POST['quantity'], FILTER_VALIDATE_INT, ['min_range' => 1]) 
+		: NULL;
+
+	$price = (isset($_POST['price']))
+		? filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION)
+		: NULL;
+
+	$tax = (isset($_POST['tax']))
+		? filter_var($_POST['tax'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION)
+		: NULL;
+
 	if(($quantity > 0) && ($price > 0) && ($tax > 0)){
 		$total = $quantity * $price;
 		$total += $total * ($tax/100);
-		// print results
-		echo '<p>The total cost of purchasing '.$quantity.' widget(s) at $'.number_format($price, 2).' each,
-			plus tax, is $'.number_format($total, 2).'</p>';
+		echo '<p>The total cost of purchasig '.$quantity.' widget(s) at $'.number_format($price, 2).' each, plus tax, is $'.number_format($total, 2).'.</p>';
 	} else {
-		echo '<p style="font-weight: bold; color: #C00">Please enter a valid quantity and tax rate.</p>';
+		echo '<p style="font-weight: bold; color: #C00">Please enter a valid quantity, price, and tax rate</p>';
 	}
+
 }
 ?>
 
