@@ -14,10 +14,16 @@
 
 <p id="results"></p>
 
-<form action="calculator.php" method="post" id="calculator">
-	<p id="quantityP">Quantity: <input type="number" name="quantity" id="quantity" step="1" min="1"></p>
-	<p id="priceP">Price: <input type="number" name="price" id="price" step="0.01" min="0.01"></p>
-	<p id="taxP">Tax (%): <input type="number" name="tax" id="tax" step="0.01" min="0.01"></p>
+<form action="calculator.php" method="post" id="calculator" novalidate>
+	<p id="quantityP">Quantity: <input type="number" name="quantity" id="quantity" step="1" min="1">
+		<span class="errorMessage" id="quantityError">Plese enter a valid quantity</span>
+	</p>
+	<p id="priceP">Price: <input type="number" name="price" id="price" step="0.01" min="0.01">
+		<span class="errorMessage" id="priceError">Please enter a valida price</span>
+	</p>
+	<p id="taxP">Tax (%): <input type="number" name="tax" id="tax" step="0.01" min="0.01">
+		<span class="errorMessage" id="taxError">Please enter a valid tax</span>
+	</p>
 	<p><input type="submit" name="submit" id="submit" value="Calculate"></p>
 </form>
 
